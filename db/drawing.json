@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "van Gogh drawings",
+      "links": [
+        {
+          "title": "słoneczniki",
+          "url" : "//"
+        },
+        {
+          "title": "gwiezdzista noc",
+          "url": "//"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Michał",
+      "links" : [
+        {
+          "title": "lorem ipsum",
+          "url" : "//"
+        },
+        {
+          "title": "noc",
+          "url": "//"
+        }
+      ]
+    }
+  ]
+}

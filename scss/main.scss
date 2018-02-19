@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1300px;
+}
+
+$columns: 2;
+$baseColumnWidth: 100%/$columns;
+$main-color: #FFFFD2;
+
+
+  .row {
+    margin:  0 1rem;
+    &:before, &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    [class*='col-'] {
+      float: left;
+      width: $baseColumnWidth;
+      min-height: 0.0625rem;
+    }
+
+    @for $i from 1 through $columns {
+      .col-#{$i} {
+        width: $baseColumnWidth * $i;
+      }
+    }
+  }
+
+
+
+
+
+
+#container {
+  display: flex;
+  background-image: url("../images/pexels-photo-351961.jpeg");
+  background-position: center bottom -150px;
+  background-size: 170%;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  #canvas {
+    margin-right: 20px;
+    margin-left: 100px;
+    width: 55%;
+    height: 97vh;
+  }
+}
+
+#sidebar {
+  overflow-y: scroll;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: #212121;
+  width: 300px;
+  height: 100vh;
+  font-family: "Roboto", Sans-serif;
+  color: $main-color;
+  .colors {
+    .row {
+      margin-top: 1rem;
+    }
+    h1 {
+      font-family: "Homemade Apple";
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: -1rem;
+    }
+    h3 {
+      text-transform: uppercase;
+      letter-spacing: 1rem;
+      font-size: 1rem;
+      font-weight: 200;
+      margin-left: 0.5rem;
+    }
+    div[data-color] {
+      width: 15px;
+      height: 15px;
+      margin: 5px;
+      border-radius: 50%;
+      float: left;
+    }
+    div[data-color].current {
+      box-shadow: 0px 0px 7px 0px rgba(255,255,210,1);
+    }
+  }
+  .options {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    .row {
+      margin-top: 1rem;
+    }
+    h3 {
+      text-transform: uppercase;
+      letter-spacing: 1rem;
+      font-size: 1rem;
+      font-weight: 200;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      text-decoration: none;
+      border: none;
+      font-family: "Roboto", Sans-serif;
+      padding: 1rem;
+      width: 90%;
+      height: 4rem;
+      cursor: pointer;
+      color: $main-color;
+      background-color: transparent;
+      border: 2px solid $main-color;
+      outline: 0;
+      text-transform: uppercase;
+    }
+    input[type='range'] {
+      margin-right: 0.5rem;
+    }
+    select {
+      border-radius: 0;
+      color: white;
+      display: block;
+      width: 100%;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      background-color: #212121;
+      font-size: 1rem;
+      border: 2px solid $main-color;
+      font-family: "Roboto", Sans-serif;
+
+      &::placeholder {
+        color: #212121;
+      }
+      &:active, &:focus {
+        background-color: #212121 ;
+        color: white;
+        border: 2px solid $main-color;
+        box-shadow: none;
+        outline: none;
+      }
+      option {
+        color: $main-color;
+      }
+
+    }
+  }
+
+}
+
+
+
+
