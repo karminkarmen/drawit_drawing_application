@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D r a w I t </title>
+    <script src="https://cdn.rawgit.com/konvajs/konva/1.7.6/konva.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+<div id="container">
+    <div id="canvas">
+        <canvas></canvas>
+    </div>
+</div>
+<div id="sidebar">
+
+    <div class="colors">
+        <h1>Drawit</h1>
+        <div class="row">
+            <h3>pastels</h3>
+            <div data-color="#FFB6B9"></div>
+            <div data-color="#FAE3D9"></div>
+            <div data-color="#BBDED6"></div>
+            <div data-color="#61C0BF"></div>
+            <div data-color="#FFE6EB"></div>
+            <div data-color="#FFCDCD"></div>
+            <div data-color="#FFDD93"></div>
+            <div data-color="#A8D8EA"></div>
+            <div data-color="#AA96DA"></div>
+            <div data-color="#FCBAD3"></div>
+            <div data-color="#FFFFD2"></div>
+            <div data-color="#A8E6CF"></div>
+            <div data-color="#DCEDC1"></div>
+            <div data-color="#FFD3B6"></div>
+            <div data-color="#FFAAA5"></div>
+            <div data-color="#CCA8E9"></div>
+            <div data-color="#C3BEF0"></div>
+            <div data-color="#FFABE5"></div>
+            <div data-color="#C7F5FF"></div>
+            <div data-color="#F4FA9C"></div>
+        </div>
+        <div class="row">
+            <h3>blue shadows</h3>
+            <div data-color="#6A65D8"></div>
+            <div data-color="#58DADA"></div>
+            <div data-color="#1CA2BB"></div>
+            <div data-color="#005E7C"></div>
+            <div data-color="#1D2786"></div>
+            <div data-color="#C9FDD7"></div>
+            <div data-color="#79D1C3"></div>
+            <div data-color="#6892D5"></div>
+            <div data-color="#3F72AF"></div>
+            <div data-color="#00ADB5"></div>
+            <div data-color="#33CCCC"></div>
+            <div data-color="#455D7A"></div>
+            <div data-color="#B9BBDF"></div>
+            <div data-color="#1F5F8B"></div>
+            <div data-color="#253B6E"></div>
+            <div data-color="#51DACF"></div>
+            <div data-color="#004A7C"></div>
+            <div data-color="#284184"></div>
+            <div data-color="#364F6B"></div>
+            <div data-color="#0245A3"></div>
+        </div>
+        <div class="row">
+            <h3>fancy!</h3>
+            <div data-color="#5628B4" class="current"></div>
+            <div data-color="#D80E70"></div>
+            <div data-color="#E7455F"></div>
+            <div data-color="#F7B236"></div>
+            <div data-color="#F9ED69"></div>
+            <div data-color="#F08A5D"></div>
+            <div data-color="#B83B5E"></div>
+            <div data-color="#6A2C70"></div>
+            <div data-color="#EFD510"></div>
+            <div data-color="#F2910A"></div>
+            <div data-color="#E94822"></div>
+            <div data-color="#FD367E"></div>
+            <div data-color="#932B77"></div>
+            <div data-color="#4E1184"></div>
+            <div data-color="#F70776"></div>
+            <div data-color="#C3195D"></div>
+            <div data-color="#3E4377"></div>
+            <div data-color="#FD367E"></div>
+            <div data-color="#FF9900"></div>
+            <div data-color="#FFDE25"></div>
+        </div>
+        <div class="row">
+            <h3>green shadows</h3>
+            <div data-color="#CFEE91"></div>
+            <div data-color="#658525"></div>
+            <div data-color="#092A35"></div>
+            <div data-color="#E5F9BD"></div>
+            <div data-color="#A0E418"></div>
+            <div data-color="#7FB414"></div>
+            <div data-color="#C6DE41"></div>
+            <div data-color="#C5D200"></div>
+            <div data-color="#51710A"></div>
+            <div data-color="#17B978"></div>
+            <div data-color="#A7FF83"></div>
+            <div data-color="#A6ED8E"></div>
+            <div data-color="#76A665"></div>
+            <div data-color="#4EF037"></div>
+            <div data-color="#A2EF44"></div>
+            <div data-color="#096C47"></div>
+            <div data-color="#0B8457"></div>
+            <div data-color="#7CBD1E"></div>
+            <div data-color="#BCEB3C"></div>
+            <div data-color="#259F6C"></div>
+        </div>
+    </div>
+
+    <div class="options">
+        <div class="row">
+            <label><h3>Pen size</h3></label>
+            <input type="range" min="1" max="100" step="1" value="5">
+            <output><strong>5</strong></output>
+        </div>
+
+        <div class="row">
+            <div class="col-1">
+            <button id="clear">clear canvas</button>
+            </div>
+            <div class="col-1">
+            <button id="save">Save in PDF</button>
+            </div>
+        </div>
+        <div class="row">
+            <label for="tools"><h3>tools</h3></label>
+            <select name="toolsSelect" id="tools">
+                <option value="eraser">Eraser</option>
+                <option value="crayon">Crayon</option>
+                <option value="pencil">Pencil</option>
+                <option value="paint">Paint</option>
+                <option value="marker" selected>Marker</option>
+            </select>
+        </div>
+    </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
