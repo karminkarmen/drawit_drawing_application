@@ -6,6 +6,7 @@
 
 body {
   width: 1300px;
+  margin: 0;
 }
 
 $columns: 2;
@@ -143,7 +144,7 @@ $main-color: #FFFFD2;
       font-size: 1rem;
       border: 2px solid $main-color;
       font-family: "Roboto", Sans-serif;
-
+      margin-bottom: 2rem;
       &::placeholder {
         color: #212121;
       }
