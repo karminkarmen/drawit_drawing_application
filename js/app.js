@@ -5,6 +5,7 @@
 
     var drawingBox = {
 
+
         enableDrawing: function (e) {
             this.mouseDown = true;
             var x = this.getX(e);
@@ -65,7 +66,6 @@
                 this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
                 this.ctx.strokeStyle = this.pattern;
             }
-
         },
 
         defaultStyle: function () {
@@ -132,6 +132,7 @@
 
         setSidebar: function () {
             [].forEach.call(this.colors, function (color) {
+
                 if(color.dataset.color) {
                     color.style.backgroundColor = color.dataset.color;
                 } else {
@@ -139,6 +140,7 @@
                     color.style.backgroundSize = "3000%";
                     color.style.backgroundPosition = "right center"
                 }
+
                 color.onclick = this.changeColor.bind(this);
             }.bind(this));
 

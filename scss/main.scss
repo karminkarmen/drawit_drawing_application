@@ -34,11 +34,6 @@ $main-color: #FFFFD2;
     }
   }
 
-
-
-
-
-
 #container {
   display: flex;
   background-image: url("../images/pexels-photo-351961.jpeg");
@@ -101,6 +96,9 @@ $main-color: #FFFFD2;
       box-shadow: 0px 0px 7px 0px rgba(255,255,210,1);
     }
     div[data-pattern].current {
+      box-shadow: 0px 0px 7px 0px rgba(255,255,210,1);
+    }
+    div[data-color].current {
       box-shadow: 0px 0px 7px 0px rgba(255,255,210,1);
     }
   }
