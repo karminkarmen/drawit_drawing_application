@@ -60,11 +60,13 @@
             this.currentColor = e.target;
             if(e.target.dataset.color) {
                 this.ctx.strokeStyle = e.target.dataset.color;
+                this.ctx.shadowColor = e.target.dataset.color;
             } else {
                 this.dataPattern = this.currentColor.dataset.pattern;
                 this.newPattern.src = this.dataPattern;
                 this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
                 this.ctx.strokeStyle = this.pattern;
+                this.ctx.shadowColor = "transparent";
             }
         },
 
@@ -75,10 +77,17 @@
             this.ctx.lineCap = "round";
             this.ctx.strokeStyle = this.currentColor.dataset.color;
             this.ctx.globalCompositeOperation = "source-over";
+            this.ctx.shadowBlur = 0;
+        },
+
+        crayonStyle: function () {
+
         },
 
         markerStyle: function () {
-
+            this.ctx.lineJoin = this.ctx.lineCap = 'round';
+            this.ctx.shadowBlur = 10;
+            this.ctx.shadowColor = this.currentColor.dataset.color;
         },
 
         paintStyle: function () {
@@ -109,6 +118,9 @@
                     break;
                 case "marker":
                     this.markerStyle();
+                    break;
+                case "crayon":
+                    this.crayonStyle();
                     break;
             }
         },
@@ -158,8 +170,9 @@
         // },
 
 
-        init: function () {
 
+        init: function () {
+            this.body = document.getElementsByTagName("body");
             this.canvasBox = document.getElementById("canvas");
             this.canvas = document.querySelector("canvas");
             this.colors = document.querySelectorAll(".colors div");
@@ -179,10 +192,14 @@
 
             this.newPattern = document.createElement("img");
 
+            // this.width = window.innerWidth;
+            // this.windowWidth = this.width - 500;
+            // this.body.width =  this.windowWidth ;
 
             this.setSidebar();
             this.setupCanvas();
             this.setTool();
+
         }
 
     };
