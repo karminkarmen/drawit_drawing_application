@@ -172,7 +172,7 @@
 
 
         init: function () {
-            this.body = document.getElementsByTagName("body");
+            this.container = document.getElementById("continer");
             this.canvasBox = document.getElementById("canvas");
             this.canvas = document.querySelector("canvas");
             this.colors = document.querySelectorAll(".colors div");
@@ -192,9 +192,7 @@
 
             this.newPattern = document.createElement("img");
 
-            // this.width = window.innerWidth;
-            // this.windowWidth = this.width - 500;
-            // this.body.width =  this.windowWidth ;
+
 
             this.setSidebar();
             this.setupCanvas();
