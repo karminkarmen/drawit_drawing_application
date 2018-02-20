@@ -5,9 +5,11 @@
 
     var drawingBox = {
 
-        enableDrawing: function () {
+        enableDrawing: function (e) {
             this.mouseDown = true;
-            this.ctx.beginPath(this.getX(event), this.getY(event));
+            var x = this.getX(e);
+            var y = this.getY(e);
+            this.ctx.beginPath(x, y);
         },
 
         disableDrawing: function () {
@@ -55,7 +57,15 @@
             document.querySelector(".current").classList.remove("current");
             e.target.classList.add("current");
             this.currentColor = e.target;
-            this.ctx.strokeStyle = e.target.dataset.color;
+            if(e.target.dataset.color) {
+                this.ctx.strokeStyle = e.target.dataset.color;
+            } else {
+                this.dataPattern = this.currentColor.dataset.pattern;
+                this.newPattern.src = this.dataPattern;
+                this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
+                this.ctx.strokeStyle = this.pattern;
+            }
+
         },
 
         defaultStyle: function () {
@@ -83,7 +93,6 @@
             this.ctx.globalAlpha = 0.05;
             this.pattern = this.ctx.createPattern(this.img, "repeat");
             this.ctx.strokeStyle = this.pattern;
-            this.ctx.fillStyle = this.currentColor.dataset.color;
         },
 
         setTool: function () {
@@ -123,7 +132,13 @@
 
         setSidebar: function () {
             [].forEach.call(this.colors, function (color) {
-                color.style.backgroundColor = color.dataset.color;
+                if(color.dataset.color) {
+                    color.style.backgroundColor = color.dataset.color;
+                } else {
+                    color.style.backgroundImage = `url(${color.dataset.pattern})`;
+                    color.style.backgroundSize = "3000%";
+                    color.style.backgroundPosition = "right center"
+                }
                 color.onclick = this.changeColor.bind(this);
             }.bind(this));
 
@@ -159,6 +174,8 @@
 
             this.img = document.createElement("img");
             this.img.src = "drawings/pencilTexture.png";
+
+            this.newPattern = document.createElement("img");
 
 
             this.setSidebar();
