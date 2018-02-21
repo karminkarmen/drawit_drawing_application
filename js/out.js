@@ -67,51 +67,60 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+module.exports = __webpack_require__(1);
 
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
 
 (function () {
 
     if (!document.createElement("canvas").getContext) return;
 
-    var prefix = "drawings";
-    var mandalas = ["mandala1.png", "mandala2.png", "mandala3.png", "mandala4.png", "mandala5.png", "mandala6.png", "mandala7.png", "mandala8.png", "mandala9.png", "mandala10.png", "mandala11.png", "mandala12.png", "mandala13.png", "mandala14.png", "mandala15.png", "mandala16.png", "mandala17.png", "mandala18.png", "mandala19.png", "mandala20.png", "mandala21.png", "mandala22.png", "mandala23.png", "mandala24.png", "mandala25.png", "mandala26.png", "mandala27.png", "mandala28.png", "mandala29.png", "mandala30.png", "mandala31.png", "mandala32.png", "mandala33.png", "mandala34.png"];
+    const prefix = "drawings";
+    let mandalas = ["mandala1.png", "mandala2.png", "mandala3.png", "mandala4.png", "mandala5.png", "mandala6.png", "mandala7.png", "mandala8.png",
+        "mandala9.png", "mandala10.png", "mandala11.png", "mandala12.png", "mandala13.png", "mandala14.png", "mandala15.png", "mandala16.png",
+        "mandala17.png", "mandala18.png", "mandala19.png", "mandala20.png", "mandala21.png", "mandala22.png", "mandala23.png", "mandala24.png",
+        "mandala25.png", "mandala26.png", "mandala27.png", "mandala28.png", "mandala29.png", "mandala30.png", "mandala31.png", "mandala32.png",
+        "mandala33.png", "mandala34.png"];
 
-    var drawingBox = {
 
-        loadRandomMandal: function loadRandomMandal() {
+    let drawingBox = {
+
+        loadRandomMandal() {
             this.clearCanvas(this.ctxColPage);
-            var randomIndex = Math.floor(Math.random() * mandalas.length);
+            let randomIndex = Math.floor((Math.random() * mandalas.length));
             this.outline.src = prefix + "/" + mandalas[randomIndex];
             console.log(this.outline.src);
         },
-
-        drawOutline: function drawOutline() {
-            this.ctxColPage.drawImage(this.outline, 110, 10, this.canvas.width - 110, this.canvas.height - 100);
+        
+        drawOutline() {
+            this.ctxColPage.drawImage(this.outline, 110, 10, this.canvas.width-110, this.canvas.height-100);
         },
 
-        enableDrawing: function enableDrawing(e) {
+        enableDrawing(e) {
             this.mouseDown = true;
-            var x = this.getX(e);
-            var y = this.getY(e);
+            let x = this.getX(e);
+            let y = this.getY(e);
             this.ctx.beginPath(x, y);
         },
 
-        disableDrawing: function disableDrawing() {
+        disableDrawing() {
             this.mouseDown = false;
         },
 
-        draw: function draw(event) {
+        draw() {
             if (!this.mouseDown) return;
-            var x = this.getX(event);
-            var y = this.getY(event);
+            let x = this.getX(event);
+            let y = this.getY(event);
 
             this.ctx.lineTo(x, y);
             this.ctx.stroke();
         },
 
-        getX: function getX(e) {
-            var canvasEdge = this.canvas.getBoundingClientRect();
+        getX(e) {
+            let canvasEdge = this.canvas.getBoundingClientRect();
 
             if (e.offsetX) {
                 return e.offsetX;
@@ -120,8 +129,8 @@
             }
         },
 
-        getY: function getY(e) {
-            var canvasEdge = this.canvas.getBoundingClientRect();
+        getY(e) {
+            let canvasEdge = this.canvas.getBoundingClientRect();
 
             if (e.offsetX) {
                 return e.offsetY;
@@ -130,19 +139,19 @@
             }
         },
 
-        clearCanvas: function clearCanvas(ctx) {
+        clearCanvas(ctx) {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         },
 
-        changePenSize: function changePenSize(penSize) {
+        changePenSize(penSize) {
             this.ctx.lineWidth = penSize;
         },
 
-        changeColor: function changeColor(e) {
+        changeColor(e) {
             document.querySelector(".current").classList.remove("current");
             e.target.classList.add("current");
             this.currentColor = e.target;
-            if (e.target.dataset.color) {
+            if(e.target.dataset.color) {
                 this.ctx.strokeStyle = e.target.dataset.color;
                 this.ctx.shadowColor = e.target.dataset.color;
             } else {
@@ -154,7 +163,7 @@
             }
         },
 
-        defaultStyle: function defaultStyle() {
+        defaultStyle() {
             this.ctx.globalAlpha = 1;
             this.ctx.lineWidth = this.range.value;
             this.ctx.lineJoin = "round";
@@ -164,31 +173,33 @@
             this.ctx.shadowBlur = 0;
         },
 
-        markerStyle: function markerStyle() {},
+        markerStyle() {
 
-        brushPenStyle: function brushPenStyle() {
+        },
+
+        brushPenStyle() {
             this.ctx.shadowBlur = 10;
             this.ctx.shadowColor = this.currentColor.dataset.color;
         },
 
-        paintStyle: function paintStyle() {
+        paintStyle() {
             this.ctx.globalAlpha = 0.05;
         },
 
-        eraserStyle: function eraserStyle() {
+        eraserStyle() {
             this.ctx.globalCompositeOperation = "destination-out";
         },
 
-        pencilStyle: function pencilStyle() {
+        pencilStyle() {
             this.ctx.globalAlpha = 0.05;
             this.pattern = this.ctx.createPattern(this.img, "repeat");
             this.ctx.strokeStyle = this.pattern;
         },
 
-        setTool: function setTool() {
+        setTool() {
             this.ctx.globalCompositeOperation = "destination-over";
             this.defaultStyle();
-            switch ($(this.toolsSelect).val()) {
+            switch($(this.toolsSelect).val()) {
                 case "eraser":
                     this.eraserStyle();
                     break;
@@ -201,16 +212,14 @@
                 case "marker":
                     this.markerStyle();
                     break;
-                // case "crayon":
-                //     this.crayonStyle();
-                //     break;
                 case "brushPen":
                     this.brushPenStyle();
                     break;
             }
         },
 
-        setupCanvas: function setupCanvas() {
+
+        setupCanvas() {
             this.canvas.width = this.canvasBox.offsetWidth;
             this.canvas.height = this.canvasBox.offsetHeight;
             this.canvasColPage.width = this.canvasBox.offsetWidth;
@@ -224,34 +233,34 @@
             this.canvasColPage.onmousedown = this.enableDrawing.bind(this);
             this.canvasColPage.onmouseup = this.disableDrawing.bind(this);
             this.canvasColPage.onmouseleave = this.disableDrawing.bind(this);
+
+
         },
 
-        setSidebar: function setSidebar() {
-            [].forEach.call(this.colors, function (color) {
-                // for (color of this.colors)
+        setSidebar() {
+            for(color of this.colors) { // for (color of this.colors)
 
-                if (color.dataset.color) {
+                if(color.dataset.color) {
                     color.style.backgroundColor = color.dataset.color;
                 } else {
-                    color.style.backgroundImage = "url(" + color.dataset.pattern + ")";
+                    color.style.backgroundImage = `url(${color.dataset.pattern})`;
                     color.style.backgroundSize = "3000%";
                     color.style.backgroundPosition = "right center";
                 }
 
                 color.onclick = this.changeColor.bind(this);
-            }.bind(this));
 
-            this.range.onchange = function (event) {
+            };
+
+            this.range.onchange =  (event) => {
                 this.rangeOutput.innerHTML = event.target.value;
                 this.changePenSize(event.target.value);
-            }.bind(this);
+            };
+
         },
 
-        createOutline: function createOutline() {},
 
-        init: function init() {
-            var _this = this;
-
+        init() {
             this.canvasBox = document.getElementById("canvases");
             this.canvas = document.querySelector("#canvas2");
             this.canvasColPage = document.querySelector("#canvas1");
@@ -262,12 +271,12 @@
             this.currentColor = document.querySelector(".current");
 
             this.clearButton = document.getElementById("clear");
-            this.saveButton = document.getElementById("save");
+            this.clearAllButton = document.getElementById("clearAll");
+
             this.randomMandala = document.querySelector(".randomMandala");
 
-            this.clearButton.onclick = function () {
-                _this.clearCanvas(_this.ctx);
-            };
+            this.clearButton.onclick = () => {this.clearCanvas(this.ctx)};
+            this.clearAllButton.onclick = () => {this.clearCanvas(this.ctxColPage)};
 
             this.toolsSelect = document.getElementById("tools");
             this.toolsSelect.onchange = this.setTool.bind(this);
@@ -287,11 +296,13 @@
             this.setSidebar();
             this.setupCanvas();
             this.setTool();
+
         }
 
     };
 
     drawingBox.init();
+
 })();
 
 /***/ })
