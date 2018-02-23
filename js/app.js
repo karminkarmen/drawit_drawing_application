@@ -2,25 +2,36 @@
 
     if (!document.createElement("canvas").getContext) return;
 
-    const prefix = "drawings";
-    let mandalas = ["mandala1.png", "mandala2.png", "mandala3.png", "mandala4.png", "mandala5.png", "mandala6.png", "mandala7.png", "mandala8.png",
-        "mandala9.png", "mandala10.png", "mandala11.png", "mandala12.png", "mandala13.png", "mandala14.png", "mandala15.png", "mandala16.png",
-        "mandala17.png", "mandala18.png", "mandala19.png", "mandala20.png", "mandala21.png", "mandala22.png", "mandala23.png", "mandala24.png",
-        "mandala25.png", "mandala26.png", "mandala27.png", "mandala28.png", "mandala29.png", "mandala30.png", "mandala31.png", "mandala32.png",
-        "mandala33.png", "mandala34.png"];
+    // const prefix = "drawings";
+    // let mandalas = ["mandala1.png", "mandala2.png", "mandala3.png", "mandala4.png", "mandala5.png", "mandala6.png", "mandala7.png", "mandala8.png",
+    //     "mandala9.png", "mandala10.png", "mandala11.png", "mandala12.png", "mandala13.png", "mandala14.png", "mandala15.png", "mandala16.png",
+    //     "mandala17.png", "mandala18.png", "mandala19.png", "mandala20.png", "mandala21.png", "mandala22.png", "mandala23.png", "mandala24.png",
+    //     "mandala25.png", "mandala26.png", "mandala27.png", "mandala28.png", "mandala29.png", "mandala30.png", "mandala31.png", "mandala32.png",
+    //     "mandala33.png", "mandala34.png"];
 
 
     let drawingBox = {
 
-        loadRandomMandal() {
-            this.clearCanvas(this.ctxColPage);
-            let randomIndex = Math.floor((Math.random() * mandalas.length));
-            this.outline.src = prefix + "/" + mandalas[randomIndex];
-            console.log(this.outline.src);
+        loadMandalas() {
+            this.mandalas = [];
+            let self = this;
+            $.ajax({
+                url: "./db/drawing.json"
+            }).done(function (response) {
+                self.mandalas = response.drawings;
+            }).fail(function (error) {
+                console.log(error);
+            })
         },
-        
+
+        loadRandomMandal() {
+                this.clearCanvas(this.ctxColPage);
+                let randomIndex = Math.floor((Math.random() * this.mandalas.length));
+                this.outline.src = this.mandalas[randomIndex].prefix + "/" + this.mandalas[randomIndex].link;
+        },
+
         drawOutline() {
-            this.ctxColPage.drawImage(this.outline, 110, 10, this.canvas.width-110, this.canvas.height-100);
+            this.ctxColPage.drawImage(this.outline, 110, 10, this.canvas.width - 110, this.canvas.height - 100);
         },
 
         enableDrawing(e) {
@@ -71,19 +82,20 @@
             this.ctx.lineWidth = penSize;
         },
 
+
         changeColor(e) {
             document.querySelector(".current").classList.remove("current");
             e.target.classList.add("current");
             this.currentColor = e.target;
-            if(e.target.dataset.color) {
+            if (e.target.dataset.color) {
                 this.ctx.strokeStyle = e.target.dataset.color;
                 this.ctx.shadowColor = e.target.dataset.color;
             } else {
-                this.ctx.strokeStyle = this.pattern;
-                this.ctx.shadowColor = "transparent";
-                this.dataPattern = this.currentColor.dataset.pattern;
                 this.newPattern.src = this.dataPattern;
+                this.dataPattern = this.currentColor.dataset.pattern;
+                this.ctx.strokeStyle = this.pattern;
                 this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
+                this.ctx.shadowColor = "transparent";
             }
         },
 
@@ -123,7 +135,7 @@
         setTool() {
             this.ctx.globalCompositeOperation = "destination-over";
             this.defaultStyle();
-            switch($(this.toolsSelect).val()) {
+            switch ($(this.toolsSelect).val()) {
                 case "eraser":
                     this.eraserStyle();
                     break;
@@ -162,9 +174,9 @@
         },
 
         setSidebar() {
-            for(color of this.colors) { // for (color of this.colors)
+            for (color of this.colors) { // for (color of this.colors)
 
-                if(color.dataset.color) {
+                if (color.dataset.color) {
                     color.style.backgroundColor = color.dataset.color;
                 } else {
                     color.style.backgroundImage = `url(${color.dataset.pattern})`;
@@ -174,9 +186,10 @@
 
                 color.onclick = this.changeColor.bind(this);
 
-            };
+            }
+            ;
 
-            this.range.onchange =  (event) => {
+            this.range.onchange = (event) => {
                 this.rangeOutput.innerHTML = event.target.value;
                 this.changePenSize(event.target.value);
             };
@@ -199,8 +212,12 @@
 
             this.randomMandala = document.querySelector(".randomMandala");
 
-            this.clearButton.onclick = () => {this.clearCanvas(this.ctx)};
-            this.clearAllButton.onclick = () => {this.clearCanvas(this.ctxColPage)};
+            this.clearButton.onclick = () => {
+                this.clearCanvas(this.ctx)
+            };
+            this.clearAllButton.onclick = () => {
+                this.clearCanvas(this.ctxColPage)
+            };
 
             this.toolsSelect = document.getElementById("tools");
             this.toolsSelect.onchange = this.setTool.bind(this);
@@ -208,18 +225,18 @@
             this.img = document.createElement("img");
             this.img.src = "drawings/pencilTexture.png";
 
-            this.imgCray = document.createElement("img");
-            this.imgCray.src = "drawings/crayon.png";
-
             this.newPattern = document.createElement("img");
+
             this.outline = document.createElement("img");
 
             this.randomMandala.onclick = this.loadRandomMandal.bind(this);
             this.outline.onload = this.drawOutline.bind(this);
 
+            this.loadMandalas();
             this.setSidebar();
             this.setupCanvas();
             this.setTool();
+
 
         }
 
