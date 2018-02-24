@@ -158,20 +158,26 @@ module.exports = __webpack_require__(1);
             this.ctx.lineWidth = penSize;
         },
 
+        setColor(color) {
+            this.ctx.strokeStyle = color.dataset.color;
+            this.ctx.shadowColor = color.dataset.color;
+        },
+
+        loadPattern() {
+            this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
+            this.ctx.strokeStyle = this.pattern;
+            this.ctx.shadowColor = "transparent";
+        },
 
         changeColor(e) {
             document.querySelector(".current").classList.remove("current");
             e.target.classList.add("current");
             this.currentColor = e.target;
             if (e.target.dataset.color) {
-                this.ctx.strokeStyle = e.target.dataset.color;
-                this.ctx.shadowColor = e.target.dataset.color;
+                this.setColor(e.target);
             } else {
-                this.newPattern.src = this.dataPattern;
                 this.dataPattern = this.currentColor.dataset.pattern;
-                this.ctx.strokeStyle = this.pattern;
-                this.pattern = this.ctx.createPattern(this.newPattern, "repeat");
-                this.ctx.shadowColor = "transparent";
+                this.newPattern.src = this.dataPattern;
             }
         },
 
@@ -246,7 +252,6 @@ module.exports = __webpack_require__(1);
             this.canvasColPage.onmouseup = this.disableDrawing.bind(this);
             this.canvasColPage.onmouseleave = this.disableDrawing.bind(this);
 
-
         },
 
         setSidebar() {
@@ -262,8 +267,7 @@ module.exports = __webpack_require__(1);
 
                 color.onclick = this.changeColor.bind(this);
 
-            }
-            ;
+            };
 
             this.range.onchange = (event) => {
                 this.rangeOutput.innerHTML = event.target.value;
@@ -302,9 +306,9 @@ module.exports = __webpack_require__(1);
             this.img.src = "drawings/pencilTexture.png";
 
             this.newPattern = document.createElement("img");
+            this.newPattern.onload = this.loadPattern.bind(this);
 
             this.outline = document.createElement("img");
-
             this.randomMandala.onclick = this.loadRandomMandal.bind(this);
             this.outline.onload = this.drawOutline.bind(this);
 
@@ -312,7 +316,6 @@ module.exports = __webpack_require__(1);
             this.setSidebar();
             this.setupCanvas();
             this.setTool();
-
 
         }
 
