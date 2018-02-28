@@ -8,6 +8,13 @@ body {
   margin: 0;
 }
 
+$tablet: "(min-width: 400px) and (max-width: 1200px)";
+@mixin tablet {
+  @media #{$tablet} {
+    @content;
+  }
+}
+
 $columns: 2;
 $baseColumnWidth: 100%/$columns;
 $main-color: #FFFFD2;
@@ -44,11 +51,20 @@ $main-color: #FFFFD2;
   width: 90%;
   align-items: center;
   flex-direction: column;
+  @include tablet {
+    background-size: 300%;
+    position: fixed;
+  }
   #canvases {
     margin-right: 20px;
     margin-left: 100px;
-    width: 55%;
+    width: 50vw;
     height: 97vh;
+    @include tablet {
+      margin: 0;
+      width: 100%;
+      height: 97vh;
+    }
   }
   canvas {
     position: absolute;
