@@ -5,4 +5,4 @@ Thanks for patterns <a href="http://www.reneblooms.com/">**Rene Blooms**</a> and
 
 **Technologies: HTML, SASS, JS(ES6 standard), CANVAS, jQuery, webpack, gulp**
 
-<a href="https://karminkarmen.github.io/DrawIt---drawing-application/">**LINK TO PREVIEW**</a>
+<a href="https://karminkarmen.github.io/drawit_drawing_application/">**LINK TO PREVIEW**</a>
